@@ -306,4 +306,572 @@
   .video-frame{position:relative; width:100%; aspect-ratio:16/9; background:#000;}
   .video-frame iframe{width:100%; height:100%; border:0; display:block;}
   .video-modal-info{padding:18px 22px 20px;}
-  .video-modal-title{font-family:'Po
+  .video-modal-title{font-family:'Poppins',sans-serif; font-size:20px; font-weight:700; line-height:1.25;}
+  .video-modal-stats{margin-top:8px; color:var(--muted); font-size:13px;}
+  .video-modal-close{
+    position:absolute; top:12px; right:12px; z-index:5;
+    width:42px; height:42px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.35);
+    background:rgba(14,13,17,.8); color:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px; line-height:1;
+  }
+  .video-modal-close:hover{background:var(--red);}
+  /* Shorts close button: always visible */
+  .shorts-close{
+    position:fixed !important; top:18px !important; right:18px !important;
+    width:44px !important; height:44px !important; z-index:20 !important;
+    border-color:rgba(243,239,232,.7) !important;
+    background:rgba(14,13,17,.78) !important; color:var(--ink) !important;
+  }
+  /* Cleaner short-form play button */
+  .play-badge{
+    width:58px; height:58px; font-size:20px; padding-left:4px;
+    background:rgba(14,13,17,.72); border:1px solid rgba(243,239,232,.55);
+  }
+  @media (max-width:820px){
+    nav .wrap{position:relative; justify-content:center;}
+    .logo{position:absolute; left:50%; transform:translateX(-50%); font-size:20px;}
+    .navlinks{display:none;}
+    .mobile-menu-btn{
+      display:flex; position:absolute; left:16px; top:50%; transform:translateY(-50%);
+      width:42px; height:42px; border:1px solid var(--line); border-radius:12px;
+      background:rgba(27,24,32,.75); color:var(--ink);
+      align-items:center; justify-content:center; flex-direction:column; gap:5px; z-index:5;
+    }
+    .mobile-menu-btn span{display:block; width:19px; height:2px; border-radius:2px; background:currentColor;}
+    .mobile-menu-panel{
+      display:flex; position:fixed; left:14px; right:14px; top:72px; z-index:49;
+      flex-direction:column; gap:4px; padding:10px;
+      background:rgba(27,24,32,.96); border:1px solid var(--line); border-radius:16px;
+      box-shadow:0 20px 50px rgba(0,0,0,.45);
+      backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+      opacity:0; transform:translateY(-8px); pointer-events:none;
+      transition:opacity .2s ease, transform .2s ease;
+    }
+    .mobile-menu-panel.open{opacity:1; transform:translateY(0); pointer-events:auto;}
+    .mobile-menu-panel a{padding:13px 14px; border-radius:10px; font-weight:600;}
+    .mobile-menu-panel a:hover{background:var(--ink); color:var(--bg);}
+    .video-overlay{padding:12px;}
+    .video-modal{width:96vw; border-radius:18px; max-height:88vh;}
+    .video-modal-info{padding:15px 16px 17px;}
+    .video-modal-title{font-size:17px;}
+    .video-modal-stats{font-size:12px;}
+  }
+  /* PAGE LOAD FADE-IN */
+  body{opacity:0;}
+  body.loaded{opacity:1; transition:opacity .5s ease;}
+</style>
+</head>
+<body>
+<div id="cdot"></div>
+<div id="cring"></div>
+<nav>
+  <div class="wrap">
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="logo">Pranav</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#shorts">Shorts</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu-panel" id="mobileMenu">
+  <a href="#about">About me</a>
+  <a href="#work">Long-form Content</a>
+  <a href="#shorts">Short-form Content</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#contact">Ping me</a>
+</div>
+<header class="hero wrap">
+  <div class="hero-eyebrow">Video editor · currently open</div>
+  <div class="title-wrap">
+    <h1 class="wave-title">Pranav's Portfolio</h1>
+    <h1 class="wave-title title-glow" id="titleGlow" aria-hidden="true">Pranav's Portfolio</h1>
+  </div>
+  <div class="hero-cta">
+    <a class="btn btn-solid" href="#work">See the work</a>
+    <a class="btn btn-outline" href="#contact">Get in touch</a>
+  </div>
+</header>
+<section id="about" class="wrap">
+  <div class="section-title">About me</div>
+  <div class="about-wrap">
+    <p class="about-text">Heyy, I'm Pranav, I'm the <span class="redword">"chef"</span> of filmmaking, people call it an "editor." I take all the ingredients and cook something special Lol. Ok so I have 3+ years of experience, mainly working with Youtubers. I enjoy doing video editing. I try to up the quality of my work with every video, I like to experiment and try new things, but I can stick to basic if asked.</p>
+  </div>
+</section>
+<section id="work" class="wrap">
+  <div class="section-title">Long-form Content:</div>
+  <div class="slider-wrap">
+  <button class="slide-btn prev" id="workPrev" aria-label="Scroll left">&#8592;</button>
+  <div class="hscroll" id="workSlider">
+    <a class="card" href="https://youtu.be/u8etW1P5ckM" data-youtube-id="u8etW1P5ckM">
+      <div class="card-thumb"><img class="card-thumb-img" src="https://i.ytimg.com/vi/u8etW1P5ckM/hqdefault.jpg" alt="They All Could Have Been..." loading="lazy"></div>
+      <div class="card-body"><div class="no">01</div><h3>They All Could Have Been...</h3><p id="v1-meta">241K views • 2 months ago</p></div>
+    </a>
+    <a class="card" href="https://youtu.be/SI5NoNwpxok" data-youtube-id="SI5NoNwpxok">
+      <div class="card-thumb"><img class="card-thumb-img" src="https://i.ytimg.com/vi/SI5NoNwpxok/hqdefault.jpg" alt="Spider-Man is Officially Spider-Man Again" loading="lazy"></div>
+      <div class="card-body"><div class="no">02</div><h3>Spider-Man is Officially Spider-Man Again</h3><p id="v2-meta">132K views • 3 months ago</p></div>
+    </a>
+    <a class="card" href="https://youtu.be/RV9Vu2klqjA" data-youtube-id="RV9Vu2klqjA">
+      <div class="card-thumb"><img class="card-thumb-img" src="https://i.ytimg.com/vi/RV9Vu2klqjA/hqdefault.jpg" alt="The COMEBACK of Ben Stokes" loading="lazy"></div>
+      <div class="card-body"><div class="no">03</div><h3>The COMEBACK of Ben Stokes</h3><p id="v3-meta">475K views • 1 year ago</p></div>
+    </a>
+    <a class="card" href="https://youtu.be/PgbVpLohrKk" data-youtube-id="PgbVpLohrKk">
+      <div class="card-thumb"><img class="card-thumb-img" src="https://i.ytimg.com/vi/PgbVpLohrKk/hqdefault.jpg" alt="The 1983 World Cup Story" loading="lazy"></div>
+      <div class="card-body"><div class="no">04</div><h3>The 1983 World Cup Story</h3><p id="v4-meta">529K views • 1 year ago</p></div>
+    </a>
+    <a class="card" href="https://youtu.be/mKI0AdOl8jM" data-youtube-id="mKI0AdOl8jM">
+      <div class="card-thumb"><img class="card-thumb-img" src="https://i.ytimg.com/vi/mKI0AdOl8jM/hqdefault.jpg" alt="YouTubers Officially Broke Hollywood" loading="lazy"></div>
+      <div class="card-body"><div class="no">05</div><h3>YouTubers Officially Broke Hollywood</h3><p id="v5-meta">93K views • 1 month ago</p></div>
+    </a>
+    <a class="card" href="https://youtu.be/L20DZN06dTQ" data-youtube-id="L20DZN06dTQ">
+      <div class="card-thumb"><img class="card-thumb-img" src="https://i.ytimg.com/vi/L20DZN06dTQ/hqdefault.jpg" alt="Pixar Is Not Pixar Anymore" loading="lazy"></div>
+      <div class="card-body"><div class="no">06</div><h3>Pixar Is Not Pixar Anymore</h3><p id="v6-meta">50K views • 3 weeks ago</p></div>
+    </a>
+    <a class="more-tile long" href="https://ytjobs.co/talent/vitrine/324189?filter=normal" target="_blank" rel="noopener">
+      <div class="arrow-circle">&#8594;</div>
+      <div class="more-label">More</div>
+    </a>
+  </div>
+  <button class="slide-btn next" id="workNext" aria-label="Scroll right">&#8594;</button>
+  </div>
+</section>
+<section id="shorts" class="wrap">
+  <div class="section-title">Short-form Content:</div>
+  <div class="hscroll">
+    <div class="short-card" data-video="videos/short1.mp4">
+      <video class="short-thumb" src="videos/short1.mp4" muted playsinline preload="metadata"></video>
+      <div class="play-badge">&#9658;</div>
+    </div>
+    <div class="short-card" data-video="videos/short2.mp4">
+      <video class="short-thumb" src="videos/short2.mp4" muted playsinline preload="metadata"></video>
+      <div class="play-badge">&#9658;</div>
+    </div>
+    <div class="short-card" data-video="videos/short3.mp4">
+      <video class="short-thumb" src="videos/short3.mp4" muted playsinline preload="metadata"></video>
+      <div class="play-badge">&#9658;</div>
+    </div>
+    <div class="short-card" data-video="videos/short4.mp4">
+      <video class="short-thumb" src="videos/short4.mp4" muted playsinline preload="metadata"></video>
+      <div class="play-badge">&#9658;</div>
+    </div>
+    <div class="short-card" data-video="videos/short5.mp4">
+      <video class="short-thumb" src="videos/short5.mp4" muted playsinline preload="metadata"></video>
+      <div class="play-badge">&#9658;</div>
+    </div>
+    <div class="short-card" data-video="videos/short6.mp4">
+      <video class="short-thumb" src="videos/short6.mp4" muted playsinline preload="metadata"></video>
+      <div class="play-badge">&#9658;</div>
+    </div>
+    <a class="more-tile short" href="https://ytjobs.co/talent/vitrine/324189?filter=short" target="_blank" rel="noopener">
+      <div class="arrow-circle">&#8594;</div>
+      <div class="more-label">More</div>
+    </a>
+  </div>
+</section>
+<div class="shorts-overlay" id="shortsModal">
+  <div class="shorts-bg-anim">
+    <div class="shorts-blob b1"></div>
+    <div class="shorts-blob b2"></div>
+    <div class="shorts-blob b3"></div>
+  </div>
+  <div class="shorts-player-wrap">
+    <button class="shorts-close" id="shortsClose">&times;</button>
+    <video id="shortsVideo" playsinline controls></video>
+  </div>
+</div>
+<div class="video-overlay" id="videoModal">
+  <div class="video-modal">
+    <button class="video-modal-close" id="videoModalClose" aria-label="Close video">&times;</button>
+    <div class="video-frame">
+      <iframe id="videoFrame" title="YouTube video player" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="video-modal-info">
+      <div class="video-modal-title" id="videoModalTitle"></div>
+      <div class="video-modal-stats" id="videoModalStats"></div>
+    </div>
+  </div>
+</div>
+<section id="reviews" class="wrap">
+  <div class="section-eyebrow"></div>
+  <div class="reviews-title">What clients are saying:</div>
+  <div class="hscroll">
+    <div class="review-card" data-name="CricAddict" data-subs="179K Subscribers" data-logo="CA" data-text="good work, really appreciated. would recommend yall to work too, you wont regret it" data-channel="https://www.youtube.com/@cricaddictyt/">
+      <div class="review-head">
+        <div class="review-logo">CA</div>
+        <div class="review-meta">
+          <div class="name">CricAddict</div>
+          <div class="subs">179K Subscribers</div>
+        </div>
+      </div>
+      <p class="review-text">"good work, really appreciated. would recommend yall to work too, you wont regret it"</p>
+    </div>
+    <div class="review-card" data-name="Giovanni Marks" data-subs="18.1K Subscribers" data-logo="GM" data-text="An Absolutely Fantastic Editor that WILL NOT STOP until your exact vision is on screen.. incredible person to work with and will continue working with him! God bless you and your family in Jesus Name and thanks a lot for your help Pranav!" data-channel="https://www.youtube.com/@MarksGiovanni">
+      <div class="review-head">
+        <div class="review-logo">GM</div>
+        <div class="review-meta">
+          <div class="name">Giovanni Marks</div>
+          <div class="subs">18.1K Subscribers</div>
+        </div>
+      </div>
+      <p class="review-text">"An Absolutely Fantastic Editor that WILL NOT STOP until your exact vision is on screen.. incredible person to work with and will continue working with him! God bless you and your family in Jesus Name and thanks a lot for your help Pranav!"</p>
+    </div>
+    <div class="review-card" data-name="Absolute Cinemaan" data-subs="24.7K Subscribers" data-logo="AC" data-text="Working with Pranav has been a delight. His understanding of different styles and vision is very efficient & adapting to it quickly makes the workflow really smooth. Keen on working ahead too!" data-channel="https://www.youtube.com/@absolutecinemaanji">
+      <div class="review-head">
+        <div class="review-logo">AC</div>
+        <div class="review-meta">
+          <div class="name">Absolute Cinemaan</div>
+          <div class="subs">24.7K Subscribers</div>
+        </div>
+      </div>
+      <p class="review-text">"Working with Pranav has been a delight. His understanding of different styles and vision is very efficient & adapting to it quickly makes the workflow really smooth. Keen on working ahead too!"</p>
+    </div>
+    <div class="review-card" data-name="CLMB Studio" data-subs="" data-logo="CS" data-text="Amazing work!">
+      <div class="review-head">
+        <div class="review-logo">CS</div>
+        <div class="review-meta">
+          <div class="name">CLMB Studio</div>
+        </div>
+      </div>
+      <p class="review-text">"Good work!"</p>
+    </div>
+    <a class="more-tile reviews" href="https://ytjobs.co/talent/clients/324189" target="_blank" rel="noopener">
+      <div class="arrow-circle">&#8594;</div>
+      <div class="more-label">More</div>
+    </a>
+  </div>
+</section>
+<div class="modal-overlay" id="reviewModal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div class="modal-head">
+      <div class="modal-logo" id="modalLogo"></div>
+      <div>
+        <div class="modal-name" id="modalName"></div>
+        <div class="modal-subs" id="modalSubs"></div>
+      </div>
+    </div>
+    <p class="modal-text" id="modalText"></p>
+    <a class="modal-channel-link" id="modalChannelLink" href="#" target="_blank" rel="noopener" style="display:none;">
+      Open channel <span class="arrow">&#8594;</span>
+    </a>
+  </div>
+</div>
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <h2 class="contact-title serif">Ping me:</h2>
+    <a class="email-row" href="mailto:phebio69@gmail.com">
+      <div>
+        <div class="label mono">Email me</div>
+        <div class="addr">phebio69@gmail.com</div>
+      </div>
+      <div class="arrow">&#8594;</div>
+    </a>
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://www.instagram.com/damaniya_pranav/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        <div>Instagram<div class="go">@damaniya_pranav →</div></div>
+      </a>
+      <a class="social-btn tw" href="https://x.com/damaniya_pranav" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.2 22H1l8.1-9.3L1 2h7.2l5 6.3L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"/></svg>
+        <div>Twitter / X<div class="go">@damaniya_pranav →</div></div>
+      </a>
+      <a class="social-btn dc" href="https://discord.gg/DcFkvSzKKk" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 5.4A18 18 0 0 0 15.9 4l-.3.6a13 13 0 0 1 3.7 1.4 15.3 15.3 0 0 0-14.6 0A13 13 0 0 1 8.4 4.6L8.1 4a18 18 0 0 0-4.4 1.4C1.4 9 .7 12.5 1 16a18.3 18.3 0 0 0 5.4 2.7l.9-1.5a11.6 11.6 0 0 1-1.8-.9l.5-.4a13 13 0 0 0 11 0l.5.4a11.6 11.6 0 0 1-1.8.9l.9 1.5A18.2 18.2 0 0 0 22 16c.4-4-.5-7.4-1.7-10.6ZM8.7 13.9c-.8 0-1.5-.8-1.5-1.7 0-1 .7-1.7 1.5-1.7s1.5.8 1.5 1.7c0 1-.7 1.7-1.5 1.7Zm6.3 0c-.8 0-1.5-.8-1.5-1.7 0-1 .7-1.7 1.5-1.7s1.5.8 1.5 1.7c0 1-.7 1.7-1.5 1.7Z"/></svg>
+        <div>Discord<div class="go">Join server →</div></div>
+      </a>
+      <a class="social-btn yj" href="https://ytjobs.co/@meetpranav" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <div>YtJobs<div class="go">@meetpranav →</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+<footer class="wrap">
+  <span>© 2026 Pranav's Portfolio</span>
+  <span>Edit · Grade · Serve</span>
+</footer>
+<script>
+  document.body.classList.add('loaded');
+
+  // Send network connection type (4g/wifi/etc) to Clarity as a custom tag
+  if (navigator.connection) {
+    window.clarity && window.clarity("set", "networkType", navigator.connection.effectiveType || navigator.connection.type || "unknown");
+  }
+
+  const workSlider = document.getElementById('workSlider');
+  const workPrev = document.getElementById('workPrev');
+  const workNext = document.getElementById('workNext');
+  if(workSlider && workPrev && workNext){
+    const scrollAmount = () => (workSlider.querySelector('.card')?.offsetWidth || 320) + 22;
+    workPrev.addEventListener('click', () => workSlider.scrollBy({left: -scrollAmount(), behavior:'smooth'}));
+    workNext.addEventListener('click', () => workSlider.scrollBy({left: scrollAmount(), behavior:'smooth'}));
+  }
+  const dot = document.getElementById('cdot');
+  const ring = document.getElementById('cring');
+  let mx=0,my=0,rx=0,ry=0;
+  window.addEventListener('mousemove', e=>{
+    mx=e.clientX; my=e.clientY;
+    dot.style.left=mx+'px'; dot.style.top=my+'px';
+  });
+  function loop(){
+    rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(loop);
+  }
+  loop();
+  document.querySelectorAll('a,button,.card,.short-card,.review-card,.social-btn').forEach(el=>{
+    el.addEventListener('mouseenter',()=>ring.classList.add('big'));
+    el.addEventListener('mouseleave',()=>ring.classList.remove('big'));
+  });
+  const titleWrap = document.querySelector('.title-wrap');
+  const titleGlow = document.getElementById('titleGlow');
+  titleWrap.addEventListener('mousemove', e => {
+    const r = titleWrap.getBoundingClientRect();
+    titleGlow.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    titleGlow.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+  titleWrap.addEventListener('mouseenter', () => { titleGlow.style.opacity = '1'; });
+  titleWrap.addEventListener('mouseleave', () => { titleGlow.style.opacity = '0'; });
+  // Drag-to-scroll for horizontal sliders
+  document.querySelectorAll('.hscroll').forEach(slider => {
+    let isDown = false;
+    let startX = 0;
+    let startScroll = 0;
+    const start = (x) => {
+      isDown = true;
+      startX = x;
+      startScroll = slider.scrollLeft;
+      slider.classList.add('dragging');
+    };
+    const move = (x) => {
+      if(!isDown) return;
+      const dx = x - startX;
+      slider.scrollLeft = startScroll - dx;
+    };
+    const end = () => {
+      isDown = false;
+      slider.classList.remove('dragging');
+    };
+    slider.addEventListener('mousedown', e => {
+      if(e.button !== 0) return; // left-click / primary touch only
+      start(e.clientX);
+    });
+    window.addEventListener('mousemove', e => move(e.clientX));
+    window.addEventListener('mouseup', end);
+    slider.addEventListener('mouseleave', () => { if(isDown) end(); });
+    slider.addEventListener('touchstart', e => {
+      start(e.touches[0].clientX);
+    }, {passive:true});
+    slider.addEventListener('touchmove', e => move(e.touches[0].clientX), {passive:true});
+    slider.addEventListener('touchend', end);
+    // block click-through only when the pointer actually dragged the track
+    slider.addEventListener('click', e => {
+      const dragged = Math.abs(slider.scrollLeft - startScroll) > 5;
+      if(dragged){ e.preventDefault(); e.stopPropagation(); }
+    }, true);
+  });
+  // Review modal
+  const modal = document.getElementById('reviewModal');
+  const modalClose = document.getElementById('modalClose');
+  const modalLogo = document.getElementById('modalLogo');
+  const modalName = document.getElementById('modalName');
+  const modalSubs = document.getElementById('modalSubs');
+  const modalText = document.getElementById('modalText');
+  const modalChannelLink = document.getElementById('modalChannelLink');
+  function openModal(card){
+    modalLogo.textContent = card.dataset.logo || '';
+    modalName.textContent = card.dataset.name || '';
+    modalSubs.textContent = card.dataset.subs || '';
+    modalSubs.style.display = card.dataset.subs ? 'block' : 'none';
+    modalText.textContent = '"' + (card.dataset.text || '') + '"';
+    if(card.dataset.channel){
+      modalChannelLink.href = card.dataset.channel;
+      modalChannelLink.style.display = 'inline-flex';
+    } else {
+      modalChannelLink.style.display = 'none';
+    }
+    modal.classList.add('open');
+    document.body.classList.add('modal-locked');
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.classList.remove('modal-locked');
+  }
+  document.querySelectorAll('.review-card').forEach(card => {
+    card.addEventListener('click', () => openModal(card));
+  });
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+  window.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+  // ============================================================
+  // LIVE STATS — pulls current view/like counts straight from
+  // YouTube every time someone loads the page. Requires a free
+  // YouTube Data API v3 key — see comment below for setup.
+  // ============================================================
+  const YT_API_KEY = 'AIzaSyDm_Nd3YM7bLJP01w7O_WEQk-upM01OBts'; // <-- paste your key here
+  const YT_VIDEOS = [
+    { slot: 'v1', id: 'u8etW1P5ckM' },
+    { slot: 'v2', id: 'SI5NoNwpxok' },
+    { slot: 'v3', id: 'RV9Vu2klqjA' },
+    { slot: 'v4', id: 'PgbVpLohrKk' },
+    { slot: 'v5', id: 'mKI0AdOl8jM' },
+    { slot: 'v6', id: 'L20DZN06dTQ' }
+  ];
+  function formatCount(n) {
+    n = Number(n);
+    if (n >= 1e6) return (Math.round(n / 1e5) / 10) + 'M';
+    if (n >= 1e3) return (Math.round(n / 1e2) / 10) + 'K';
+    return String(n);
+  }
+  function timeAgo(dateStr) {
+    const then = new Date(dateStr).getTime();
+    const days = Math.floor((Date.now() - then) / 86400000);
+    if (days < 1) return 'today';
+    if (days < 7) return days + (days === 1 ? ' day ago' : ' days ago');
+    if (days < 30) { const w = Math.floor(days / 7); return w + (w === 1 ? ' week ago' : ' weeks ago'); }
+    if (days < 365) { const m = Math.floor(days / 30); return m + (m === 1 ? ' month ago' : ' months ago'); }
+    const y = Math.floor(days / 365); return y + (y === 1 ? ' year ago' : ' years ago');
+  }
+  async function loadYouTubeVideoStats() {
+    if (!YT_API_KEY || YT_API_KEY === 'YOUR_YOUTUBE_API_KEY') return; // fall back to the static numbers above
+    try {
+      const ids = YT_VIDEOS.map(v => v.id).join(',');
+      const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet&id=${ids}&key=${YT_API_KEY}`);
+      const data = await res.json();
+      if (!data.items) return;
+      data.items.forEach(item => {
+        const match = YT_VIDEOS.find(v => v.id === item.id);
+        if (!match) return;
+        const el = document.getElementById(match.slot + '-meta');
+        if (!el) return;
+        const views = formatCount(item.statistics.viewCount) + ' views';
+        const likes = item.statistics.likeCount ? formatCount(item.statistics.likeCount) + ' likes' : null;
+        const when = timeAgo(item.snippet.publishedAt);
+        el.textContent = likes ? `${views} • ${likes} • ${when}` : `${views} • ${when}`;
+      });
+    } catch (err) {
+      console.error('YouTube stats fetch failed, keeping static numbers:', err);
+    }
+  }
+  // ------------------------------------------------------------
+  // Reviewer subscriber counts — add each reviewer's channel ID
+  // (starts with "UC...") below to auto-update their sub count.
+  // Leave as null to keep the static number typed in the HTML.
+  // ------------------------------------------------------------
+  const YT_CHANNELS = [
+    { name: 'CricAddict', channelId: 'UCCiyxHvVgKoKlb3v0WVTpaw' },
+    { name: 'Giovanni Marks', channelId: 'UCFlVibyn7qL_cxOuWbAUbUA' },
+    { name: 'CLMB Studio', channelId: null },
+    { name: 'Absolute Cinemaan', channelId: 'UC343MWdubKCeMZECVgE_AxA' }
+  ];
+  async function loadYouTubeChannelStats() {
+    if (!YT_API_KEY || YT_API_KEY === 'YOUR_YOUTUBE_API_KEY') return;
+    const ids = YT_CHANNELS.filter(c => c.channelId).map(c => c.channelId);
+    if (!ids.length) return;
+    try {
+      const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${ids.join(',')}&key=${YT_API_KEY}`);
+      const data = await res.json();
+      if (!data.items) return;
+      data.items.forEach(item => {
+        const match = YT_CHANNELS.find(c => c.channelId === item.id);
+        if (!match) return;
+        const subText = formatCount(item.statistics.subscriberCount) + ' Subscribers';
+        document.querySelectorAll('.review-card').forEach(card => {
+          if (card.dataset.name === match.name) {
+            card.dataset.subs = subText;
+            const subsEl = card.querySelector('.subs');
+            if (subsEl) subsEl.textContent = subText;
+          }
+        });
+      });
+    } catch (err) {
+      console.error('YouTube channel stats fetch failed, keeping static numbers:', err);
+    }
+  }
+  loadYouTubeVideoStats();
+  loadYouTubeChannelStats();
+  // Mobile navigation
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if(mobileMenuBtn && mobileMenu){
+    mobileMenuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      mobileMenuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      mobileMenuBtn.setAttribute('aria-expanded','false');
+    }));
+    document.addEventListener('click', e => {
+      if(!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)){
+        mobileMenu.classList.remove('open');
+        mobileMenuBtn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  // Long-form YouTube player modal
+  const videoModal = document.getElementById('videoModal');
+  const videoModalClose = document.getElementById('videoModalClose');
+  const videoFrame = document.getElementById('videoFrame');
+  const videoModalTitle = document.getElementById('videoModalTitle');
+  const videoModalStats = document.getElementById('videoModalStats');
+  function openVideoModal(card){
+    const id = card.dataset.youtubeId;
+    if(!id) return;
+    videoModalTitle.textContent = card.querySelector('h3')?.textContent.trim() || '';
+    videoModalStats.textContent = card.querySelector('p')?.textContent.trim() || '';
+    videoFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+    videoModal.classList.add('open');
+    document.body.classList.add('modal-locked');
+  }
+  function closeVideoModal(){
+    videoModal.classList.remove('open');
+    document.body.classList.remove('modal-locked');
+    videoFrame.src = '';
+  }
+  document.querySelectorAll('.card[data-youtube-id]').forEach(card => {
+    card.addEventListener('click', e => {
+      e.preventDefault();
+      openVideoModal(card);
+    });
+  });
+  videoModalClose.addEventListener('click', closeVideoModal);
+  videoModal.addEventListener('click', e => { if(e.target === videoModal) closeVideoModal(); });
+  window.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && videoModal.classList.contains('open')) closeVideoModal();
+  });
+  // Shorts player modal
+  const shortsModal = document.getElementById('shortsModal');
+  const shortsVideo = document.getElementById('shortsVideo');
+  const shortsClose = document.getElementById('shortsClose');
+  function openShortsModal(card){
+    const src = card.dataset.video;
+    if(!src) return;
+    shortsVideo.src = src;
+    shortsModal.classList.add('open');
+    document.body.classList.add('modal-locked');
+    shortsVideo.play().catch(()=>{});
+  }
+  function closeShortsModal(){
+    shortsModal.classList.remove('open');
+    document.body.classList.remove('modal-locked');
+    shortsVideo.pause();
+    shortsVideo.removeAttribute('src');
+    shortsVideo.load();
+  }
+  document.querySelectorAll('.short-card').forEach(card => {
+    card.addEventListener('click', () => openShortsModal(card));
+  });
+  shortsClose.addEventListener('click', closeShortsModal);
+  shortsModal.addEventListener('click', e => { if(e.target === shortsModal) closeShortsModal(); });
+  window.addEventListener('keydown', e => { if(e.key === 'Escape' && shortsModal.classList.contains('open')) closeShortsModal(); });
+</script>
+</body>
+</html>
